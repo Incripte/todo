@@ -44,6 +44,10 @@ const onChange = (event) => {
     }
   }
 
+const onRemove = (todo) => {
+  setTodos(todos.filter((obj) => obj.id !== todo.id));
+}
+
 const onToggle = (todo) => {
   setTodos(todos.map((obj) => (obj.id === todo.id ? { ...obj, checked: !todo.checked } : obj))
   )
@@ -73,7 +77,10 @@ const onToggle = (todo) => {
                 tabIndex={0}>
                   {todo.title}
               </span>
-              <button className="remove" type="button">
+              <button
+                className="remove"
+                type="button"
+                onClick={() => onRemove(todo)}>
                <MdDelete size={28} />
               </button>
             </li>
