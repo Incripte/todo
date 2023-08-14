@@ -1,44 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import "./styles.css";
+
 
 const NewTodo = ({ onNewTodo }) => {
-    const [value, setValue] = useState("");
-    const ESCAPE_KEY = 27;
-    const ENTER_KEY = 13;
+  const ESCAPE_KEY = 27;
+  const ENTER_KEY = 13;
 
-    const erase = () => {
-        setValue("");
-    };
+  const [value, setValue] = useState("");
 
-    const submit = () => {
-        if(!onNewTodo){
-            return;     
-        }
-            onNewTodo(value);
-            erase();
-    };
+  const erase = () => {
+    setValue("");
+  };
 
-        const onChange = (event) => {
-        setValue(event.target.value);
-        };
+  const submit = () => {
+    if (onNewTodo) {
+      onNewTodo(value);
+      erase();
+    }
+  };
 
-    const onKeyDown = (event) => {
-        if (event.which === ENTER_KEY) {
-        submit();
-        } else if (event.which === ESCAPE_KEY) {
-        erase();
-        }
-    };
+  const onChange = (event) => {
+    setValue(event.target.value);
+  };
 
-    return (
-        <input
-            className="new-todo"
-            placeholder="o que precisa ser feito?"
-            value={value}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-        />
-    );
-}
+  const onKeyDown = (event) => {
+    if (event.which === ENTER_KEY) {
+      submit();
+    } else if (event.which === ESCAPE_KEY) {
+      erase();
+    }
+  };
 
-export default index
+  return (
+    <input
+      className="new-todo"
+      placeholder="o que precisa ser feito?"
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+    />
+  );
+};
 
+NewTodo.propTypes = {
+  onNewTodo: PropTypes.func.isRequired,
+};
+
+export default NewTodo;
